@@ -1,14 +1,35 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Mi tienda
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+      <ion-grid>
+          <ion-row *ngFor="let pares of _ps.productos">
+            <ion-col *ngFor="let item of pares">
+              <img src="http://localhost/rest/public/img/productos/{{item.codigo}}.jpg">
+              <p>
+                {{item.producto}}
+                <br>
+                {{item.precio_compra | currency: 'USD': 'symbol-narrow':'4.2-2'}}
+              </p>
+            </ion-col>
+          </ion-row>
+          </ion-grid>
+     <!--Error en el evento checar-->
+
+     
+          
   </div>
+  <ion-infinite-scroll (ionInfinite)="siguiente_pagina($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Cargando más imagenes...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  
 </ion-content>

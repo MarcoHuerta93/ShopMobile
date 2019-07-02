@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild  } from '@angular/core';
+import {ProductosService} from "../productos.service";
+import { IonInfiniteScroll, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  constructor() {}
+  constructor(
+    public navCtrl:NavController,
+    private _ps: ProductosService) {}
 
-}
+
+    siguiente_pagina(IonInfiniteScroll){
+    this._ps.cargar_todos().then( ()=>{
+      IonInfiniteScroll.target.complete();
+    });
+  }
+
+}   
